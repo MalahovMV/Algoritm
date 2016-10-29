@@ -211,7 +211,7 @@ if pos:
 
 labyritnh.numberdel()
 from TestOutput import TestOut
-TestOut(labirint)
+TestOut(ans, labirint, labyritnh.start)
 
 for l in labirint:
     prom = ''
