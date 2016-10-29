@@ -1,4 +1,5 @@
-def TestOut(labirint):
+import copy
+def TestOut(ans, labirint, start):
     for element in labirint[0]:
         if not ((element == '-') or (element == '|')):
             raise Exception('Выходной лабиринт неограничен')
@@ -30,3 +31,33 @@ def TestOut(labirint):
             if not boolean:
                 print(element)
                 raise Exception('Некорректный символ в файле')
+
+    if not ans:
+        currentstars = {'S' : start}
+        nextstars = {}
+        lab = copy.deepcopy(labirint)
+        while not ('F' in currentstars):
+            count = 0
+            for key in currentstars.keys():
+                lab[currentstars[key][1]][currentstars[key][0]] = ' '
+                for i in range(3):
+                    for j in range(3):
+                        if lab[currentstars[key][1] + j - 1][currentstars[key][0] + i - 1] == '*':
+                            nextstars['*' + str(count)] = [currentstars[key][0] + i - 1, currentstars[key][1] + j - 1]
+                            count += 1
+
+                        if lab[currentstars[key][1] + j - 1][currentstars[key][0] + i - 1] == 'F':
+                            nextstars['F'] = [currentstars[key][0] + i - 1, currentstars[key][1] + j - 1]
+                            count += 1
+
+            if count == 0:
+                raise Exception ('Нет пути, соединяющего старт и финиш')
+
+            currentstars = copy.deepcopy(nextstars)
+            print(currentstars)
+            nextstars = {}
+
+
+
+
+
