@@ -54,7 +54,6 @@ def TestOut(ans, labirint, start):
                 raise Exception ('Нет пути, соединяющего старт и финиш')
 
             currentstars = copy.deepcopy(nextstars)
-            print(currentstars)
             nextstars = {}
 
 
