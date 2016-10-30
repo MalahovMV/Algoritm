@@ -1,3 +1,4 @@
+#Проверка правильности ответа к тестирующему входу
 def TestAns(nfaila):
     fileOut = open('Output/vyhod' + nfaila + '.txt', 'r')
     fileAns = open('ExpectAnsw/vyhod' + nfaila + '.txt', 'r')
@@ -7,7 +8,7 @@ def TestAns(nfaila):
         i = 0
         for element in sOut:
             flag = False
-            if not ((element == sAns[i]) or (sAns[i] == '*')):
+            if not (element == sAns[i]):
                 flag = True
 
             if flag:
@@ -16,3 +17,6 @@ def TestAns(nfaila):
             i+=1
 
     print ('Был получен верный результат')
+
+nfaila = input('Введите номер проверочного файла')
+TestAns(nfaila)

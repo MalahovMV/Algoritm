@@ -1,13 +1,4 @@
 # < - only left, > - only right, ^ - only app, / - only down
-from TestInput import Test
-nfaila = input('Введите номер входного файла')
-Test(nfaila)
-file=open('Input/vhod' + nfaila + '.txt', 'r')
-labirint=[]
-for s in file:
-    s=s[:-1]
-    labirint.append(list(s))
-file.close()
 
 class Labirint:
     def __init__(self):
@@ -174,7 +165,17 @@ class Labirint:
 
             print(ans)
             labyritnh.transform_labirint()
-
+#Проверка на корректность входных данных
+from TestInput_Output import TestIn
+nfaila = input('Введите номер входного файла')
+TestIn(nfaila)
+#Начало работы алгоритма
+file=open('Input/vhod' + nfaila + '.txt', 'r')
+labirint=[]
+for s in file:
+    s=s[:-1]
+    labirint.append(list(s))
+file.close()
 labyritnh = Labirint()
 #labyritnh.opendoor()
 labyritnh.calculate_start_and_finish('S', 'F')
@@ -210,9 +211,10 @@ if pos:
         else: break
 
 labyritnh.numberdel()
-from TestOutput import TestOut
+#Проверка на то, что в файл записывается корректный лабиринт
+from TestInput_Output import TestOut
 TestOut(ans, labirint, labyritnh.start)
-
+#Запись в файл
 for l in labirint:
     prom = ''
     for el in l:
@@ -224,5 +226,3 @@ file=open('Output/vyhod' + nfaila + '.txt', 'w')
 file.write(ans)
 file.close()
 
-from TestAnsTrue import TestAns
-TestAns(nfaila)

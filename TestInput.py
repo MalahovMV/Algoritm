@@ -1,3 +1,4 @@
+#Проверка корректности введенных данных
 def Test(nfaila):
     file=open('Input/vhod' + nfaila + '.txt', 'r')
     s = file.readline()
