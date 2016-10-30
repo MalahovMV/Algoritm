@@ -4,6 +4,7 @@ class Labirint:
     def __init__(self):
         self.count = 0
 
+    #Вычисление позиций старта и финиша
     def calculate_start_and_finish(self, st, fin):
         self.finish = []
         self.start = []
@@ -20,6 +21,7 @@ class Labirint:
             except:
                 pass
 
+    #Подготовка лабиринта к запуску волнового алгоритма
     def transform_labirint(self):
         self.lab = []
         for line in labirint:
@@ -32,6 +34,7 @@ class Labirint:
 
             self.lab.append(l)
 
+    #Проверка на каждом шагу, что есть позиции, в которые можно добраться за один ход
     def withoutways(self):
         flag = 0
         for i in range(len(self.lab)):
@@ -52,6 +55,7 @@ class Labirint:
 
         return bool(flag)
 
+    #Проход лабиринта волной
     def wave(self):
         for i in range(len(self.lab)):
             for j in range(len(self.lab[i])):
@@ -70,6 +74,7 @@ class Labirint:
                         self.lab[i - 1][j] = self.count + 1
         self.count += 1
 
+    #Проверка, нельзя ли достичь финиша на следующем ходу
     def theend(self):
         boolean = (self.lab[self.finish[-1]][self.finish[-2] + 1] == self.count)
         boolean = boolean or (self.lab[self.finish[-1]][self.finish[-2] - 1] == self.count)
@@ -77,6 +82,7 @@ class Labirint:
         boolean = boolean or (self.lab[self.finish[-1] - 1][self.finish[-2]] == self.count)
         return boolean
 
+    #Проход лабиринта от финиша к старту, с пометкой пути нужными символами
     def comeback(self, pos):
         self.count -= 1
         mark = '*'
@@ -89,12 +95,14 @@ class Labirint:
                     pos[-2] = pos[-2] + j - 1
                     return  pos
 
+    #Сохранение пути в лабиринт в основной программе
     def numberdel(self):
         for i in range(len(self.lab)):
             for j in range(len(self.lab[i])):
                 if self.lab[i][j] == '*':
                     labirint[i][j] = '*'
 
+    #Поиск ключей в лабиринте
     def findkeys(self):
         alfabet = 'a'
         while alfabet[-1] < 'z':
@@ -106,6 +114,7 @@ class Labirint:
                 if element in alfabet:
                     self.keys.append(element)
 
+    #Открытие дверей
     def opendoor(self):
         alfabet = 'A'
         while alfabet[-1] < 'Z':
@@ -211,9 +220,6 @@ if pos:
         else: break
 
 labyritnh.numberdel()
-#Проверка на то, что в файл записывается корректный лабиринт
-from TestInput_Output import TestOut
-TestOut(ans, labirint, labyritnh.start)
 #Запись в файл
 for l in labirint:
     prom = ''
@@ -225,4 +231,8 @@ for l in labirint:
 file=open('Output/vyhod' + nfaila + '.txt', 'w')
 file.write(ans)
 file.close()
+
+#Проверка на то, что в файл был записан корректный лабиринт
+from TestInput_Output import TestOut
+TestOut(nfaila)
 

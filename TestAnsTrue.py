@@ -2,7 +2,7 @@
 def TestAns(nfaila):
     fileOut = open('Output/vyhod' + nfaila + '.txt', 'r')
     fileAns = open('ExpectAnsw/vyhod' + nfaila + '.txt', 'r')
-
+    #Сверяем полученный файл и ожидаемый
     for sOut in fileOut:
         sAns = fileAns.readline()
         i = 0

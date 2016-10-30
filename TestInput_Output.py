@@ -4,11 +4,13 @@ def TestIn(nfaila):
     s = file.readline()
     s = s[:-1]
     length = 0
+    #Считываем первую строчку, проверяем, что лабиринт ограничен сверху
     for element in s:
         length = len(s)
         if not ((element == '-') or (element == '|')):
             raise Exception('Лабиринт неограничен')
 
+    #Создаем алфавит допустимых букв в лабиринте
     alfabet = 'a'
     while alfabet[-1] < 'z':
         alfabet += chr(ord(alfabet[-1]) + 1)
@@ -16,6 +18,7 @@ def TestIn(nfaila):
     for letter in alfabet:
         alfabet+=(chr(ord(letter) - ord('a') + ord('A')))
 
+    #Проверяем допустимость символов и ограниченность лабиринта по бокам
     for s in file:
         s=s[:-1]
         if not (length == len(s)):
@@ -32,6 +35,7 @@ def TestIn(nfaila):
                 print(element)
                 raise Exception('Некорректный символ в файле')
 
+    #Проверяем ограниченность лабиринта снизу
     for element in s:
         if not ((element == '-') or (element == '|')):
             raise Exception('Лабиринт неограничен')
@@ -40,11 +44,34 @@ def TestIn(nfaila):
 
 import copy
 #Проверка корректности выходных данных
-def TestOut(ans, labirint, start):
+def TestOut(nfaila):
+    file = open('Output/vyhod' + nfaila + '.txt', 'r')
+    labirint = []
+    for s in file:
+        s = s[:-1]
+        labirint.append(list(s))
+    file.close()
+    #Проверям, считает ли программа, что из лабиринта возможен выход
+    start = []
+    if labirint[0][1] == '-':
+        ans = ''
+        for l in labirint:
+            try:
+                start.append(l.index(str('S')))
+                start.append(labirint.index(l))
+            except:
+                pass
+
+    else:
+        ans = str(labirint[0])
+        labirint = labirint[1 : ]
+
+    #Проверяем ограниченность лабиринта сверху
     for element in labirint[0]:
         if not ((element == '-') or (element == '|')):
             raise Exception('Выходной лабиринт неограничен')
 
+    #Проверяем ограниченность лабиринта снизу
     for element in labirint[-1]:
         if not ((element == '-') or (element == '|')):
             raise Exception('Выходной лабиринт неограничен')
@@ -56,8 +83,9 @@ def TestOut(ans, labirint, start):
     for letter in alfabet:
         alfabet += (chr(ord(letter) - ord('a') + ord('A')))
 
-    alfabet += '*'
+    alfabet += '*#$'
     length = len(labirint[0])
+    #Проверка на ограниченность лабиринта по бокам и корректность символов внутри
     for line in labirint:
         if not (length == len(line)):
             raise Exception('Строки в либиринте имеют разную длину')
@@ -73,9 +101,11 @@ def TestOut(ans, labirint, start):
                 print(element)
                 raise Exception('Некорректный символ в файле')
 
+    #Если лабиринт возможно пройти, проверяем есть ли путь, соединяющий старт и финиш
     if not ans:
         currentstars = {'S' : start}
         nextstars = {}
+        alfabet = '*#$'
         lab = copy.deepcopy(labirint)
         while not ('F' in currentstars):
             count = 0
@@ -83,7 +113,7 @@ def TestOut(ans, labirint, start):
                 lab[currentstars[key][1]][currentstars[key][0]] = ' '
                 for i in range(3):
                     for j in range(3):
-                        if lab[currentstars[key][1] + j - 1][currentstars[key][0] + i - 1] == '*':
+                        if lab[currentstars[key][1] + j - 1][currentstars[key][0] + i - 1] in alfabet:
                             nextstars['*' + str(count)] = [currentstars[key][0] + i - 1, currentstars[key][1] + j - 1]
                             count += 1
 
@@ -98,8 +128,16 @@ def TestOut(ans, labirint, start):
             nextstars = {}
 
 if __name__ == '__main__':
-    nfailain = input('Введите номер входного файла, который нужно проверить')
-    TestIn(nfailain)
-    print('Введенный файл корректен')
+    change = input('''Введите 0, если хотите проверить корректность входного файла,
+                   введите 1, если хотите проверить корректность выходного файла''')
+    if int(change):
+        nfaila = input('Введите номер  файла, который нужно проверить')
+        TestOut(nfaila)
+        print('Введенный файл корректен')
+
+    else:
+        nfaila = input('Введите номер  файла, который нужно проверить')
+        TestIn(nfaila)
+        print('Введенный файл корректен')
 
 
