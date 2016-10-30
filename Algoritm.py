@@ -175,7 +175,7 @@ class Labirint:
             print(ans)
             labyritnh.transform_labirint()
 #Проверка на корректность входных данных
-from TestInput_Output import TestIn
+from Test import TestIn
 nfaila = input('Введите номер входного файла')
 TestIn(nfaila)
 #Начало работы алгоритма
@@ -233,6 +233,6 @@ file.write(ans)
 file.close()
 
 #Проверка на то, что в файл был записан корректный лабиринт
-from TestInput_Output import TestOut
+from Test import TestOut
 TestOut(nfaila)
 

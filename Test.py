@@ -147,8 +147,6 @@ def TestAns(nfaila):
 
     print ('Был получен верный результат')
 
-nfaila = input('Введите номер проверочного файла')
-TestAns(nfaila)
 
 if __name__ == '__main__':
     change = input('''Введите 0, если хотите проверить корректность входного файла,
@@ -157,11 +155,11 @@ if __name__ == '__main__':
         nfaila = input('Введите номер  файла, который нужно проверить')
         TestOut(nfaila)
         print('Введенный файл корректен')
+        TestAns(nfaila)
 
     else:
         nfaila = input('Введите номер  файла, который нужно проверить')
         TestIn(nfaila)
         print('Введенный файл корректен')
-	TestAns(nfaila)
 
 
