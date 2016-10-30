@@ -127,7 +127,7 @@ def TestOut(nfaila):
             currentstars = copy.deepcopy(nextstars)
             nextstars = {}
 
-#Проверка правильности ответа к тестирующему входу
+#Проверка правильности ответа к тестирующему входу.
 def TestAns(nfaila):
     fileOut = open('Output/vyhod' + nfaila + '.txt', 'r')
     fileAns = open('ExpectAnsw/vyhod' + nfaila + '.txt', 'r')
