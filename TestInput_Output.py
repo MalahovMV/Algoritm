@@ -83,7 +83,7 @@ def TestOut(nfaila):
     for letter in alfabet:
         alfabet += (chr(ord(letter) - ord('a') + ord('A')))
 
-    alfabet += '*#$'
+    alfabet += '*#$%'
     length = len(labirint[0])
     #Проверка на ограниченность лабиринта по бокам и корректность символов внутри
     for line in labirint:
